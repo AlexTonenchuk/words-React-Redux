@@ -1,0 +1,21 @@
+
+.word {
+  background:rgb(54, 55, 56);
+  display: flex;
+  justify-content:ce;
+  margin: 30px 40px 30px 40px;
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+
+.id {
+  width: 40px;
+  margin-right: 20px;
+  color: rgb(85, 85, 85);
+  cursor: pointer;
+  letter-spacing: normal;
+}
+
+.marked {
+  background-color: rgb(115, 120, 130);
+}

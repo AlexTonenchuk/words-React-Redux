@@ -1,3 +1,42 @@
+Для отработки навыков работы с рекомендуемым Redux современным инструментом Toolkit - разбиваю стейт на слайсы:
+- список слов;
+- слово (- перевод слова, находящегося под курсором мыши; - список выделенных слов.);
+- язык;
+- ...;
+
+Структура папок выбрана в соответствии с рекомендациями Redux: 
+https://redux.js.org/style-guide/#structure-files-as-feature-folders-with-single-file-logic
+Каждая папка компонента содержит в себе файлы:
+- react компонент;
+- redux слайс;
+- стили;
+- ...;
+
+Всю логику компонентов стараюсь прописать в редьюсерах, для удобства тестирования, в соответствии с рекомендациями Redux:
+...
+
+Для сохранения скорости отзывчивости интерфейса стараюсь минимизировать любые лишние переборы массивов (map(), findindex() и т.п.) в компонентах и в редьюсерах. Перебор массива по факту используется только один раз в <WordList/>. 
+
+В слайсах у initialState не использую initialState.value если initialState это массив или объект соответствии с рекомендациями Redux:
+...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App and Redux
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.

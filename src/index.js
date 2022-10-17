@@ -1,4 +1,63 @@
 import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { store } from './app/store';
+import { loaded } from './features/wordList/wordListSlice';
+import { getMarkedWordsIds } from './features/word/wordSlice';
+import './index.css';
+import App from './App';
+import { data } from './app/data'
+//import reportWebVitals from './reportWebVitals';
+
+store.dispatch(loaded(data));
+store.dispatch(getMarkedWordsIds());
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+// не забыть вернуть обертку стриктмод вокруг провайдера
+root.render(                                    
+    <Provider store={store}>
+      <App />
+    </Provider>
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
+
+//reportWebVitals();
+
+
+
+
+
+
+
+
+
+
+/* 
+import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
@@ -21,3 +80,4 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+ */

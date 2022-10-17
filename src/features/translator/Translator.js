@@ -1,3 +1,40 @@
+
+import React from "react";
+import styles from './Translator.module.css';
+import { useSelector } from 'react-redux';
+import { selectWordTranslate } from '../wordList/wordListSlice';
+
+
+export default function Translator () {
+  const wordTranslate = useSelector(selectWordTranslate);
+  return (
+    <div className={styles.translator}> 
+      {wordTranslate} 
+    </div>
+  )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -65,3 +102,5 @@ export function Counter() {
     </div>
   );
 }
+
+ */

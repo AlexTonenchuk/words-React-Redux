@@ -1,0 +1,19 @@
+.sort {
+  padding: 20px;
+}
+
+.sort select {
+  background: rgb(114, 112, 112);
+  color: rgb(215, 215, 215);
+  border: 1px solid rgb(136, 133, 133);
+  box-shadow: 2px 2px 2px rgb(41, 40, 40);
+  cursor: pointer;
+}
+
+.sort select:hover {
+  background: rgb(137, 136, 136);
+}
+
+.sort select:active {
+  background: rgb(96, 93, 93);
+}

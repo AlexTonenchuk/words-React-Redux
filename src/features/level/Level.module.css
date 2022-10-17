@@ -1,0 +1,14 @@
+.level {
+  max-width: 100%;
+  background: rgb(84, 83, 83);
+  display: flex;
+  justify-content: space-around;
+  margin: 20px;
+}
+
+.levelFild {
+  width: 50px;
+  background: rgb(123, 121, 121);
+  color: rgb(215, 215, 215);
+  text-align: center;
+}

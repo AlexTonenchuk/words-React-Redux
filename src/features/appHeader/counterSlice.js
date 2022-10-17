@@ -1,3 +1,8 @@
+
+
+
+
+/* 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchCount } from './counterAPI';
 
@@ -71,3 +76,5 @@ export const incrementIfOdd = (amount) => (dispatch, getState) => {
 };
 
 export default counterSlice.reducer;
+
+ */

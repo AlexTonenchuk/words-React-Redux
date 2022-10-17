@@ -1,3 +1,42 @@
+
+.li {
+  list-style-type: none;
+  padding: 0px;
+  margin-left: 0px; 
+}
+
+.list {
+  height: calc(100% - 180px);
+  overflow: auto;
+  background:rgb(43, 43, 43);
+}
+
+.list::-webkit-scrollbar {
+  width: 7px;
+  background-color: #4c4c53;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background-color: #858d94;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
 .row {
   display: flex;
   align-items: center;
@@ -76,3 +115,5 @@
   opacity: 1;
   transition: 0s;
 }
+
+ */
