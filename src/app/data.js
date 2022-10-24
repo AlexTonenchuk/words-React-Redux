@@ -199,5 +199,6 @@ export const data = [
     {id:197,eng:'rules',rus:'правила'},
     {id:198,eng:'pane',rus:'панель'},
     {id:199,eng:'bit',rus:'немного'},
-
+    {id:200,eng:'select',rus:'выбирать'},
+    			
 ]
