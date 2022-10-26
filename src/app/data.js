@@ -239,7 +239,7 @@ export const data = [
     {id:229,eng:'base',rus:'база, базовый'},
     {id:230,eng:'pull',rus:'тянуть на себя'},
     {id:231,eng:'second',rus:'второй'},
-    {id:232,eng:'accept',rus:'принимать, соглашаться'},
+    {id:232,eng:'accept',rus:'принимать, согл-ться'},
     {id:233,eng:'restrict',rus:'ограничивать'},
     {id:234,eng:'That',rus:'этот'},
     {id:235,eng:'bring',rus:'приносить'},
