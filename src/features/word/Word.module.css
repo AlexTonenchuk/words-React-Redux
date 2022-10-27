@@ -1,8 +1,8 @@
 
-.word {
+.row {
   background:rgb(54, 55, 56);
   display: flex;
-  justify-content:ce;
+  justify-content:left;
   margin: 30px 40px 30px 40px;
   cursor: pointer;
   letter-spacing: 2px;
@@ -19,3 +19,8 @@
 .marked {
   background-color: rgb(115, 120, 130);
 }
+
+.word {
+  text-align: left;
+}
+
