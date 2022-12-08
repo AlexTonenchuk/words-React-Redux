@@ -6,11 +6,31 @@ import sortReducer from '../features/sort/sortSlice';
 import levelReducer from '../features/level/levelSlice';
 
 export const store = configureStore({
-  reducer: {                            // так много редъюсеров (5 шт) для того чтобы хорошо
-    wordList: wordListReducer,          // отработать этот паттерн на практике
+  // так много редъюсеров (5 шт) для того чтобы хорошо
+  // отработать этот паттерн на практике
+  reducer: {                            
+    wordList: wordListReducer,          
     word: wordReducer,
     language: languageReducer,
     sort: sortReducer,
     level: levelReducer,
   },
 });
+
+console.dir(store.getState())
+
+// создатель экземпляров store для изолированных тестов
+// используется в setupTest.js
+// см. https://redux.js.org/usage/writing-tests
+export const setupStore = preloadedState => {
+  return configureStore({
+      reducer: {                            
+        wordList: wordListReducer,          
+        word: wordReducer,
+        language: languageReducer,
+        sort: sortReducer,
+        level: levelReducer,
+      },
+      preloadedState
+    })
+}

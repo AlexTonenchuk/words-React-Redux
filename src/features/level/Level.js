@@ -26,7 +26,7 @@ export default function Level() {
                 className={styles.levelFild}/>
       </form>
       <div>out off</div>
-      <div>{totalWords}</div>
+      <div data-testid="totalWords">{totalWords}</div>
     </div>
   );
 }

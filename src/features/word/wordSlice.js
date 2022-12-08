@@ -11,7 +11,8 @@ const initialState = {
 
 // Здесь могло бы быть асинхронное получение данных с сервера,
 // (пользовательский список id выделенных слов),
-// но сервера нет, поэтому список получаем из localStorage.
+// но сервера нет, поэтому список получаем из localStorage,
+// не вызывая никаких асихронных запросов
 export const getMarkedWordsIds = createAsyncThunk('word/getMarkedWordsIds', async () => {
   return JSON.parse(localStorage.getItem('markedWordsIds')) || [];
 })

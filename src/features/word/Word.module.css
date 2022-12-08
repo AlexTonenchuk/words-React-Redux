@@ -1,6 +1,6 @@
 
 .row {
-  background:rgb(54, 55, 56);
+  background:rgb(76, 77, 79);
   display: flex;
   justify-content:left;
   margin: 30px 40px 30px 40px;
@@ -11,7 +11,7 @@
 .id {
   width: 40px;
   margin-right: 20px;
-  color: rgb(85, 85, 85);
+  color: rgb(115, 115, 115);
   cursor: pointer;
   letter-spacing: normal;
 }

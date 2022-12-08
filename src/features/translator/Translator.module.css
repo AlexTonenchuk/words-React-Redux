@@ -1,6 +1,7 @@
 .translator {
-  background: rgb(84, 83, 83);
-  color: rgb(125, 125, 125);
+  background: rgb(76, 77, 79);
+  border: 2px groove rgb(108, 108, 108);
+  color: rgb(131, 131, 131);
   margin:  10px 20px 0px 20px;
   padding-top: 5px;
   height: 20px;

@@ -1,6 +1,5 @@
 .level {
   max-width: 100%;
-  background: rgb(84, 83, 83);
   display: flex;
   justify-content: space-around;
   margin: 10px 20px 20px 20px;

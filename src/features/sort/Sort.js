@@ -5,10 +5,12 @@ import { changeSort } from './sortSlice';
 
 
 export default function Sort () {
-  const sort = useSelector(state => state.sort);
+  // useSelector не работает
+  const sort = useSelector(state => state.sort);  
   const dispatch = useDispatch();
   const onChange = (e) => dispatch(changeSort(e.target.value));
   return (
+    // defaultValue не работает
     <span className={styles.sort}>
       <select 
           size="1" 

@@ -12,8 +12,6 @@ const Word = ({id}) => {
   const mouseOver = () => dispatch(changeFocusWordId(id));
   const mouseLeave = () => dispatch(clearFocusWordId());
   const onClick = () => dispatch(saveMarkedIds(id));
-  console.dir('2 render Word');                              // для отладки
-  console.dir(id);                                           // для отладки
   return (
     <div  className={styles.row} 
           onMouseOver={mouseOver}

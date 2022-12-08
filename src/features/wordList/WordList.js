@@ -8,8 +8,8 @@ import { selectSortType } from "../sort/sortSlice";
 const WordList = () => {
   const sortType = useSelector(selectSortType);
   const sortedWordsIds = useSelector(selectSortedWordsIds, shallowEqual);
-// рандомную сортировку массива id выносим из селектора в компонент
-// так как селектор должен быть чистой функцией
+  // рандомная сортировка массива id делается здесь в компоненте,
+  // а не в селекторе т.к. селектор должен быть чистой функцией
   let renderedWordsIds;
   if (sortType === 'all' || sortType === 'marked'){
     renderedWordsIds = [...sortedWordsIds].sort((a,b) => a-b)
@@ -19,10 +19,6 @@ const WordList = () => {
   const renderedWords = renderedWordsIds.map((wordId) => {
     return <li key={wordId}> <Word id={wordId}/> </li>
   });
-  // для отладки
-  console.dir('1 render list from WordList');
-  // для отладки
-  console.dir(sortedWordsIds);                            
   return (
     <div className={styles.list}>
       <ul className={styles.li}> {renderedWords} </ul>
