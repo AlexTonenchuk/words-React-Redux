@@ -9,7 +9,8 @@ export default function Language () {
   const lang = useSelector(state => state.language.value);
   return (
     <div className={styles.language}>
-      <button onClick={() => dispatch(toggleLanguage())}>
+      <button onClick={() => dispatch(toggleLanguage())}
+              data-testid='eng/rus'>
         {lang}
       </button>
     </div>

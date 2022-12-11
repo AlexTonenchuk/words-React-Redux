@@ -1,7 +1,7 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 
 const   initialState = {
-  value: 15,
+  value: 10,
 };
 
 export const levelSlice = createSlice({

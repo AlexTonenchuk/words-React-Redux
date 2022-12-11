@@ -1,13 +1,14 @@
 import React from "react";
 import styles from './Level.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeLevel } from './levelSlice';
+import { selectLevel, changeLevel } from './levelSlice';
 import { selectTotalWords } from '../wordList/wordListSlice';
 import { useState } from "react";
 
 
 export default function Level() {
-  const [level, setLevel] = useState("");
+  const levelInStore = useSelector(selectLevel);
+  const [level, setLevel] = useState(levelInStore);
   const totalWords = useSelector(selectTotalWords);
   const dispatch = useDispatch();
   const onChange = (e) => setLevel(e.target.value);
@@ -20,10 +21,10 @@ export default function Level() {
       <div >level</div>
       <form name = 'level' onSubmit={onSubmit}>
         <input  type = "text" 
-                placeholder = {'level'}
                 value = {level}
                 onChange = {onChange}
-                className={styles.levelFild}/>
+                className={styles.levelFild}
+                data-testid="levell"/>
       </form>
       <div>out off</div>
       <div data-testid="totalWords">{totalWords}</div>
