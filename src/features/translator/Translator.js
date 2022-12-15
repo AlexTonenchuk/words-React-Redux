@@ -8,7 +8,8 @@ import { selectWordTranslate } from '../wordList/wordListSlice';
 export default function Translator () {
   const wordTranslate = useSelector(selectWordTranslate);
   return (
-    <div className={styles.translator}> 
+    <div  className={styles.translator}
+          data-testid='translator'> 
       {wordTranslate} 
     </div>
   )

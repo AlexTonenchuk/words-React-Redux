@@ -20,7 +20,8 @@ const Word = ({id}) => {
         {id}
       </div>
       <div  className={classes} 
-            onClick={onClick}> 
+            onClick={onClick}
+            data-testid='word'> 
         {word}    
       </div>
     </div>  

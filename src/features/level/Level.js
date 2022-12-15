@@ -24,7 +24,7 @@ export default function Level() {
                 value = {level}
                 onChange = {onChange}
                 className={styles.levelFild}
-                data-testid="levell"/>
+                data-testid="level"/>
       </form>
       <div>out off</div>
       <div data-testid="totalWords">{totalWords}</div>
