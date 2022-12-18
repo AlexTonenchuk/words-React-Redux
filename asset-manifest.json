@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/words-React-Redux/static/css/main.8bda3111.css",
+    "main.js": "/words-React-Redux/static/js/main.a0bd2599.js",
+    "index.html": "/words-React-Redux/index.html",
+    "main.8bda3111.css.map": "/words-React-Redux/static/css/main.8bda3111.css.map",
+    "main.a0bd2599.js.map": "/words-React-Redux/static/js/main.a0bd2599.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8bda3111.css",
+    "static/js/main.a0bd2599.js"
+  ]
+}
