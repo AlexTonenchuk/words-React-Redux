@@ -4,7 +4,7 @@ import Language from '../language/Language';
 import Sort from '../sort/Sort';
 
 
-export default function AppHeader () {
+const AppHeader = () => {
   return (
       <div className={styles.appHeader}>
         <Language/>
@@ -12,3 +12,5 @@ export default function AppHeader () {
       </div>
   )
 }
+
+export default  AppHeader

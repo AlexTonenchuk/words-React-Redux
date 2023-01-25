@@ -6,19 +6,19 @@ import { selectTotalWords } from '../wordList/wordListSlice';
 import { useState } from "react";
 
 
-export default function Level() {
+const Level = () => {
   const levelInStore = useSelector(selectLevel);
   const [level, setLevel] = useState(levelInStore);
   const totalWords = useSelector(selectTotalWords);
   const dispatch = useDispatch();
-  const onChange = (e) => setLevel(e.target.value);
-  const onSubmit = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setLevel(parseInt(e.target.value));
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(changeLevel(level));
   };
   return (
     <div className={styles.level}>
-      <div >level</div>
+      <div>level</div>
       <form name = 'level' onSubmit={onSubmit}>
         <input  type = "text" 
                 value = {level}
@@ -31,3 +31,5 @@ export default function Level() {
     </div>
   );
 }
+
+export default Level;

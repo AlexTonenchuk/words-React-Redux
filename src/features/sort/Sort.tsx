@@ -2,19 +2,18 @@ import React from "react";
 import styles from './Sort.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeSort } from './sortSlice';
+import { RootState } from "../../app/store";
 
 
-export default function Sort () {
-  // useSelector не работает
-  const sort = useSelector(state => state.sort);  
+const Sort = () => {
+  const sort = useSelector((state: RootState) => state.sort);  
   const dispatch = useDispatch();
-  const onChange = (e) => dispatch(changeSort(e.target.value));
+  const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => dispatch(changeSort(e.target.value));
   return (
-    // defaultValue не работает
     <span className={styles.sort}>
-      <select 
-          size="1" 
-          name="sort"
+      <select
+          name ="sort"
+          data-testid="sort"
           defaultValue = { sort }
           onChange = { onChange }>
           <option value="all"> all </option>
@@ -25,3 +24,5 @@ export default function Sort () {
     </span>
   );
 };
+
+export default Sort

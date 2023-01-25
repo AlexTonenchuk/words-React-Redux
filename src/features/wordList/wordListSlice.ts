@@ -1,11 +1,18 @@
-import { createSlice, createSelector, createEntityAdapter } from '@reduxjs/toolkit';
+import { createSlice, createSelector, createEntityAdapter, EntityId } from '@reduxjs/toolkit';
 import { selectMarkedWordsIds, selectFocusWordId } from '../word/wordSlice';
 import { selectLevel } from '../level/levelSlice';
 import { selectSortType } from '../sort/sortSlice';
 import { selectLanguage } from '../language/languageSlice';
+import { RootState } from '../../app/store';
 
 
-const wordsAdapter = createEntityAdapter();
+interface IEntity {
+  id: number;
+  eng: string;
+  rus: string;
+};
+
+const wordsAdapter = createEntityAdapter<IEntity>();
 
 const initialState = wordsAdapter.getInitialState();
 
@@ -26,7 +33,7 @@ export const {
   selectEntities: selectWordList, 
   selectById: selectCoupleWords,
   selectTotal: selectTotalWords,
-} = wordsAdapter.getSelectors((state) => state.wordList);
+} = wordsAdapter.getSelectors((state: RootState) => state.wordList);
 
 export const selectSortedWordsIds = createSelector(
   selectWordsIds,
@@ -47,7 +54,11 @@ export const selectSortedWordsIds = createSelector(
 export const selectWord = createSelector(
   selectCoupleWords,
   selectLanguage,
-  (coupleWord,  lang) => coupleWord[lang]
+  (coupleWord,  lang) => {
+    if (coupleWord) {
+      return coupleWord[lang as keyof IEntity]
+    } else {return ''}
+  }
 )
 
 export const selectWordTranslate = createSelector(
@@ -55,11 +66,10 @@ export const selectWordTranslate = createSelector(
   selectFocusWordId,
   selectLanguage,
   (words, focusId, lang) => {
-    if (focusId){
-    return lang === 'eng' ? words[focusId]['rus'] : words[focusId]['eng'];
-    } else {
-      return ' '
-    }
+    let coupleWords = words[focusId];
+    if (focusId && coupleWords){
+      return lang==='eng'? coupleWords['rus'] : coupleWords['eng'];
+    } else { return ' ' }
   }
 )
 
@@ -67,8 +77,13 @@ export const selectIsMarked = createSelector(
   selectCoupleWords,
   selectMarkedWordsIds,
   (coupleWords, markedWordsIds ) => {
-    const id = coupleWords.id;
-    const isMarked = markedWordsIds.indexOf(id) > -1 ? true : false;
-    return isMarked
+    let isMarked
+    if (coupleWords){
+      const id = coupleWords.id;
+      isMarked = markedWordsIds.indexOf(id) > -1 ? true : false;
+      return isMarked
+    } else {
+      return isMarked=false
+    }
   }
 )

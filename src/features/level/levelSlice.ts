@@ -1,16 +1,11 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
-
-const   initialState = {
-  value: 10,
-};
+import { RootState } from '../../app/store';
 
 export const levelSlice = createSlice({
   name: 'level',
-  initialState,
+  initialState: 10,
   reducers: { 
-    changeLevel: (state, action) => {
-      state.value = action.payload;
-    },
+    changeLevel: (state, action) => state = action.payload,
   },
 });
 
@@ -19,6 +14,6 @@ export const { changeLevel } = levelSlice.actions;
 export default levelSlice.reducer;
 
 export const selectLevel = createSelector(
-  state => state,
-  state => state.level.value
+  (state: RootState) => state,
+  state => state.level
 );

@@ -1,17 +1,12 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
 
-
-const   initialState = {
-  value: "all",
-};
 
 export const sortSlice = createSlice({
   name: 'sort',
-  initialState,
+  initialState: 'all',
   reducers: { 
-    changeSort: (state, action) => {
-      state.value = action.payload
-    },
+    changeSort: (state, action) => state = action.payload,
   },
 });
 
@@ -20,6 +15,6 @@ export const { changeSort } = sortSlice.actions;
 export default sortSlice.reducer;
 
 export const selectSortType = createSelector(
-  state => state,
-  state => state.sort.value
+  (state: RootState) => state,
+  state => state.sort
 );

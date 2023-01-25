@@ -17,12 +17,14 @@ export const store = configureStore({
   },
 });
 
-console.dir(store.getState())
+export type RootState = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;
 
 // создатель экземпляров store для изолированных тестов
 // используется в setupTest.js
 // см. https://redux.js.org/usage/writing-tests
-export const setupStore = preloadedState => {
+export const setupStore = (preloadedState: RootState | {}) => {
   return configureStore({
       reducer: {                            
         wordList: wordListReducer,          
@@ -34,3 +36,4 @@ export const setupStore = preloadedState => {
       preloadedState
     })
 }
+

@@ -1,15 +1,15 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import App from './App';
 import { renderWithProviders } from './setupTests';
-import userEvent from '@testing-library/user-event'
+import { RootState } from './app/store';
 
 // В соответствии с рекомендациями Redux
 // https://redux.js.org/usage/writing-tests
-// предпочтение отдаем интеграционным тестам.
+// предпочтение отдается интеграционным тестам.
 
-// preloadedState для пересоздаваемого в каждом тесте store
-const testState = {
+// это preloadedState для store, пересоздаваемого в каждом тесте 
+const testState: RootState = {
   wordList: {
     entities: {
       1: {id:1,eng:'one',rus:'один'}, 
@@ -20,12 +20,12 @@ const testState = {
     ids: [1, 2, 3, 4,]
   },
   word: {
-    focusWordId: undefined,
+    focusWordId: '',
     markedWordsIds: [2],
   },
-  sort: {value: "all",},
-  level: {value: 3,},       // 3 но не 4 для чистоты эксперемента
-  language: {value: 'eng',},
+  sort: "all",
+  level: 3,
+  language: 'eng',
 };
 
 // тесты первоначального отображения списка слов
@@ -34,7 +34,7 @@ describe('after first render app:', () => {
 
   test('"one", "two", "three" are rendered', () => {
     renderWithProviders(<App />, { preloadedState: testState });
-    expect(screen.getByText('one')).toBeInTheDocument();
+    expect(screen.getByText('one')).toBeInTheDocument(); 
     expect(screen.getByText('two')).toBeInTheDocument();
     expect(screen.getByText('three')).toBeInTheDocument();
   });
@@ -55,7 +55,7 @@ describe('after first render app:', () => {
     expect(screen.getByText('three')).not.toHaveClass('marked');
   });
 
-  test('"four" is rendered then "level" equal 4', () => {
+  test('"four" is rendered if "level" equal 4', () => {
     const testState = {
       wordList: {
         entities: {
@@ -67,184 +67,166 @@ describe('after first render app:', () => {
         ids: [1, 2, 3, 4 ]
       },
       word: {
-        focusWordId: undefined,
+        focusWordId: "",
         markedWordsIds: [],
       },
-      sort: {value: "all",},
-      level: {value: 4,},       //  4 вместо 3
-      language: {value: 'eng',},
+      sort: "all",
+      level: 4,       //  меняем на 4 вместо 3
+      language: 'eng',
     };
     renderWithProviders(<App />, { preloadedState: testState });
     expect(screen.getByText('four')).toBeInTheDocument();
-  });
+  }); 
 });
 
 // тесты кнопки переключения языка:
 
 test('button "eng" is rendered', () => {
   renderWithProviders(<App />, { preloadedState: testState });
-  expect(screen.getByText('eng')).toBeInTheDocument();
+  const button = screen.getByRole('button', {name: 'eng'});
+  expect(button).toBeInTheDocument();
 });
 
 describe('after click on the "eng" button:', () => {
   
-  test('"rus" is rendered', async () => {
-    const user = userEvent.setup();
+  test('"rus" is rendered', () => {
     renderWithProviders(<App />, { preloadedState: testState });
-    await user.click(screen.getByTestId('eng/rus'));
-    expect(screen.getByTestId('eng/rus').textContent).toBe('rus');
+    fireEvent.click(screen.getByRole('button', {name: 'eng'}));
+    expect(screen.getByRole('button', {name: 'rus'})).toBeInTheDocument();
   });
   
-  test('"один", "два", "три" are rendered', async () => {
-    const user = userEvent.setup();
+  test('"один", "два", "три" are rendered', () => {
     renderWithProviders(<App />, { preloadedState: testState });
-    await user.click(screen.getByTestId('eng/rus'));
+    fireEvent.click(screen.getByRole('button', {name: 'eng'}));
     expect(screen.getByText('один')).toBeInTheDocument();
     expect(screen.getByText('два')).toBeInTheDocument();
     expect(screen.getByText('три')).toBeInTheDocument();
   });
 
-  test('"one"..."three" are not rendered', async () => {
-    const user = userEvent.setup();
+  test('"one"..."three" are not rendered', () => {
     renderWithProviders(<App />, { preloadedState: testState });
-    await user.click(screen.getByTestId('eng/rus'));
+    fireEvent.click(screen.getByRole('button', {name: 'eng'}));
     expect(screen.queryByText('one')).not.toBeInTheDocument();
     expect(screen.queryByText('two')).not.toBeInTheDocument();
     expect(screen.queryByText('three')).not.toBeInTheDocument();
   });
 
-  test('"четыре" is not rendered', async () => {
-    const user = userEvent.setup();
+  test('"четыре" is not rendered',  () => {
     renderWithProviders(<App />, { preloadedState: testState });
-    await user.click(screen.getByTestId('eng/rus'));
+    fireEvent.click(screen.getByRole('button', {name: 'eng'}));
     expect(screen.queryByText('четыре')).not.toBeInTheDocument();
   });
+  
 })
-
+ 
 // тесты "all mixed" в меню сортировки:
 
 test('sort "all" is selected default', () => {
   renderWithProviders(<App />, { preloadedState: testState });
-  expect(screen.getByRole('option', { name: 'all' }).selected)
-  .toBe(true);
+  expect(screen.getByTestId('sort')).toHaveValue('all')
 });
 
-test('sort "all mixed" is not selected', () => {
+test('"all mixed","marked","marked mixed" is not selected', () => {
   renderWithProviders(<App />, { preloadedState: testState });
-  expect(screen.getByRole('option', { name: 'all mixed' }).selected)
-  .toBe(false);
+  const sort = screen.getByTestId('sort');
+  expect(sort).not.toHaveValue('all mixed');
+  expect(sort).not.toHaveValue('marked ');
+  expect(sort).not.toHaveValue('marked mixed');
 });
 
-describe('after select "all mixed" in sort menu:', () => {
+describe('after select "all mixed" it is selected', () => {
 
-  test('"all mixed" is selected', async () => {
-    const user = userEvent.setup();
+  test('"all mixed" is selected', () => {
     renderWithProviders(<App />, { preloadedState: testState });
-    await user.selectOptions(
-      screen.getByRole('combobox'),
-      screen.getByRole('option', { name: 'all mixed' }),
-    );
-    expect(screen.getByRole('option', { name: 'all mixed' }).selected)
-    .toBe(true);
+    const sort = screen.getByTestId('sort');
+    fireEvent.change(sort, { target: { value: 'all mixed' } });
+    expect(sort).toHaveValue('all mixed');
   });
 
-  test('"one" ... "five" are not sequential', async () => {
-    // добавим в стейт "five" чтоб снизить вероятность нежелательной
-    // последовательной отрисовки от "one" до "five"
-    const user = userEvent.setup();
+  test('"one" ... "five" are not sequential', () => {
+    // добавим в стейт "five" чтоб снизить вероятность случайной 
+    // нежелательной последовательной отрисовки от "one" до "five"
     const testState = {
       wordList: {
         entities: {
-          1: {id:1,eng:'one_',rus:'один'}, 
-          2: {id:2,eng:'two_',rus:'два'},
-          3: {id:3,eng:'three_',rus:'три'},
-          4: {id:4,eng:'four_',rus:'четыре'},
-          5: {id:5,eng:'five_',rus:'пять'},
+          1: {id:1,eng:'one',rus:'один'}, 
+          2: {id:2,eng:'two',rus:'два'},
+          3: {id:3,eng:'three',rus:'три'},
+          4: {id:4,eng:'four',rus:'четыре'},
+          5: {id:5,eng:'five',rus:'пять'},
         },
         ids: [1, 2, 3, 4, 5]
       },
       word: {
-        focusWordId: undefined,
+        focusWordId: '',
         markedWordsIds: [],
       },
-      sort: {value: "all",},
-      level: {value: 5,},
-      language: {value: 'eng',},
+      sort: "all",
+      level: 5,
+      language: 'eng',
     };
     renderWithProviders(<App />, { preloadedState: testState });
-    await user.selectOptions(
-      screen.getByRole('combobox'),
-      screen.getByRole('option', { name: 'all mixed' }),
-    );
+    const sort = screen.getByTestId('sort');
+    fireEvent.change(sort, { target: { value: 'all mixed' } });
+    const words: any =  screen.getAllByTestId('word');
     expect( 
-            screen.getAllByTestId('word')[0].textContent 
-            + screen.getAllByTestId('word')[1].textContent 
-            + screen.getAllByTestId('word')[2].textContent
-            + screen.getAllByTestId('word')[3].textContent 
-            + screen.getAllByTestId('word')[4].textContent
-    ).not.toBe("one_two_three_four_five_");
+      words[0].textContent 
+      + words[1].textContent 
+      + words[2].textContent
+      + words[3].textContent 
+      + words[4].textContent
+    ).not.toBe("onetwothreefourfive"); //not: one + two + three + four + five
   });
+
 });
 
 // тесты "marked" в меню сортировки:
 
 describe('after select "marked" in sort menu:', () => {
 
-  test('"marked" is selected', async () => {
-    const user = userEvent.setup();
+  test('"marked" is selected',  () => {
     renderWithProviders(<App />, { preloadedState: testState });
-    await user.selectOptions(
-      screen.getByRole('combobox'),
-      screen.getByRole('option', { name: 'marked' }),
-    );
-    expect(screen.getByRole('option', { name: 'marked' }).selected)
-    .toBe(true);
+    const sort = screen.getByTestId('sort');
+    fireEvent.change(sort, { target: { value: 'marked'} });
+    expect(sort).toHaveValue('marked');
   });
-
-  test('"two" is rendered', async () => {
-    const user = userEvent.setup();
+  
+  test('"two" is rendered',  () => {
     renderWithProviders(<App />, { preloadedState: testState });
-    await user.selectOptions(
-      screen.getByRole('combobox'),
-      screen.getByRole('option', { name: 'marked' }),
-    );
+    const sort = screen.getByTestId('sort');
+    fireEvent.change(sort, { target: { value: 'marked'} });
     expect(screen.getByText('two')).toBeInTheDocument();
   });
 
-  test('"one" and "three" are not rendered', async () => {
-    const user = userEvent.setup();
+  test('"one" and "three" are not rendered', () => {
     renderWithProviders(<App />, { preloadedState: testState });
-    await user.selectOptions(
-      screen.getByRole('combobox'),
-      screen.getByRole('option', { name: 'marked' }),
-    );
+    const sort = screen.getByTestId('sort');
+    fireEvent.change(sort, { target: { value: 'marked'} });
     expect(screen.queryByText('one')).not.toBeInTheDocument();
     expect(screen.queryByText('three')).not.toBeInTheDocument();
   });
+  
 });
 
-// тесты функцианальности: появление подсказки-перевода 
-// при наведении курсора на строку со словом
+// тесты появления подсказки-перевода при hover
 
-test('when mouse hover in "one": "один" is rendered', async () => {
-  const user = userEvent.setup();
+test('when mouse hover in "one": "один" is rendered', () => {
   renderWithProviders(<App />, { preloadedState: testState });
-  await user.hover(screen.getByText('one'));
-  expect(screen.getByText('один')).toBeVisible();
-});
-
-test('when mouse hover in "1": "один" is rendered', async () => {
-  const user = userEvent.setup();
-  renderWithProviders(<App />, { preloadedState: testState });
-  await user.hover(screen.getByText('1'));
+  expect(screen.queryByText('один')).not.toBeInTheDocument();
+  fireEvent.mouseOver(screen.getByText('one'));
   expect(screen.getByText('один')).toBeInTheDocument();
-  expect(screen.getByText('один')).toBeVisible();
 });
 
-test('when mouse hover in "2": "один" is not rendered', async () => {
-  const user = userEvent.setup();
+test('when mouse hover in "1": "один" is rendered', () => {
   renderWithProviders(<App />, { preloadedState: testState });
-  await user.hover(screen.getByText('2'));
+  expect(screen.queryByText('один')).not.toBeInTheDocument();
+  fireEvent.mouseOver(screen.getByText('1'));
+  expect(screen.getByText('один')).toBeInTheDocument();
+});
+
+test('when mouse hover in "2": "один" is not rendered', () => {
+  renderWithProviders(<App />, { preloadedState: testState });
+  fireEvent.mouseOver(screen.getByText('2'));
   expect(screen.queryByText('один')).not.toBeInTheDocument();
 });
 
@@ -258,18 +240,21 @@ test('"level", "out off" are rendered', () => {
 
 test('"level" equal 3', () => {
   renderWithProviders(<App />, { preloadedState: testState });
-  expect(screen.getByTestId('level').value).toBe('3')
+  const level = screen.getByTestId('level');
+  expect(level).toHaveValue('3')
 });
 
 test('"out off" equal 4', () => {
   renderWithProviders(<App />, { preloadedState: testState });
-  expect(screen.getByTestId('totalWords')).toHaveTextContent('4')
-});
+  const total = screen.getByTestId('totalWords');
+  expect(total).toHaveTextContent('4')
+}); 
 
-test('after submit "level" = 1: only "one" is rendered', async () => {
-  const user = userEvent.setup();
+test('after submit "level" = 1: only "one" is rendered', () => {
   renderWithProviders(<App />, { preloadedState: testState });
-  await user.type(screen.getByTestId('level'), "{backspace}1{enter}");
+  const level = screen.getByTestId('level');
+  fireEvent.input(level, { target: { value: 1 }});
+  fireEvent.submit(level);
   expect(screen.getByText('one')).toBeInTheDocument();
   expect(screen.queryByText('two')).not.toBeInTheDocument();
   expect(screen.queryByText('three')).not.toBeInTheDocument();
