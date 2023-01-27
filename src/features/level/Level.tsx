@@ -11,7 +11,9 @@ const Level = () => {
   const [level, setLevel] = useState(levelInStore);
   const totalWords = useSelector(selectTotalWords);
   const dispatch = useDispatch();
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setLevel(parseInt(e.target.value));
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLevel(e.target.value ? parseInt(e.target.value) : 0)
+  };
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(changeLevel(level));
@@ -19,9 +21,11 @@ const Level = () => {
   return (
     <div className={styles.level}>
       <div>level</div>
-      <form name = 'level' onSubmit={onSubmit}>
+      <form name = 'level' 
+            onSubmit={onSubmit}>
         <input  type = "text" 
                 value = {level}
+                placeholder = {`level`}
                 onChange = {onChange}
                 className={styles.levelFild}
                 data-testid="level"/>
