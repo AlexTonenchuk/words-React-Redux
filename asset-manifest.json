@@ -1,13 +1,13 @@
 {
-  "main.css": "/words-React-Redux/static/css/main.3ebc6187.chunk.css",
-  "main.js": "/words-React-Redux/static/js/main.054c20ea.chunk.js",
-  "main.js.map": "/words-React-Redux/static/js/main.054c20ea.chunk.js.map",
+  "main.css": "/words-React-Redux/static/css/main.df03b42d.chunk.css",
+  "main.js": "/words-React-Redux/static/js/main.92e9b007.chunk.js",
+  "main.js.map": "/words-React-Redux/static/js/main.92e9b007.chunk.js.map",
   "runtime~main.js": "/words-React-Redux/static/js/runtime~main.41c17428.js",
   "runtime~main.js.map": "/words-React-Redux/static/js/runtime~main.41c17428.js.map",
   "static/js/2.1cba8f3c.chunk.js": "/words-React-Redux/static/js/2.1cba8f3c.chunk.js",
   "static/js/2.1cba8f3c.chunk.js.map": "/words-React-Redux/static/js/2.1cba8f3c.chunk.js.map",
   "index.html": "/words-React-Redux/index.html",
-  "precache-manifest.ba047f9d3cdbf5175bb1b652799c5d8d.js": "/words-React-Redux/precache-manifest.ba047f9d3cdbf5175bb1b652799c5d8d.js",
+  "precache-manifest.7e87db4ed80542e34b71eef2ac6c963c.js": "/words-React-Redux/precache-manifest.7e87db4ed80542e34b71eef2ac6c963c.js",
   "service-worker.js": "/words-React-Redux/service-worker.js",
-  "static/css/main.3ebc6187.chunk.css.map": "/words-React-Redux/static/css/main.3ebc6187.chunk.css.map"
+  "static/css/main.df03b42d.chunk.css.map": "/words-React-Redux/static/css/main.df03b42d.chunk.css.map"
 }
