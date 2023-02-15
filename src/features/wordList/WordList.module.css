@@ -6,7 +6,7 @@
 }
 
 .list {
-  height: calc(100% - 130px);
+  height: calc(100% - 115px);
   overflow: auto;
   background:rgb(43, 43, 43);
 }

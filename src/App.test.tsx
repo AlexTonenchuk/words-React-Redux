@@ -1,8 +1,10 @@
+import '@testing-library/jest-dom/extend-expect'; 
 import React from 'react';
 import { fireEvent, screen } from '@testing-library/react';
 import App from './App';
 import { renderWithProviders } from './setupTests';
 import { RootState } from './app/store';
+
 
 // В соответствии с рекомендациями Redux
 // https://redux.js.org/usage/writing-tests

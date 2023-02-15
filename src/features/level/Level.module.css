@@ -1,13 +1,13 @@
 .level {
-  max-width: 100%;
+  width: 120px;
   display: flex;
   justify-content: space-around;
-  margin: 10px 20px 20px 20px;
-  padding-top: 5px;
+
 }
 
 .levelFild {
-  width: 50px;
+  width: 40px;
+  height: 13px;
   background: rgb(123, 121, 121);
   color: rgb(215, 215, 215);
   text-align: center;

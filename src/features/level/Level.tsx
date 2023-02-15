@@ -30,7 +30,7 @@ const Level = () => {
                 className={styles.levelFild}
                 data-testid="level"/>
       </form>
-      <div>out off</div>
+      <div>/</div>
       <div data-testid="totalWords">{totalWords}</div>
     </div>
   );
