@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "23fbe6ede376947ee5c2",
-    "url": "/words-React-Redux/static/css/main.df03b42d.chunk.css"
+    "revision": "4b4cf472047fb0f57a74",
+    "url": "/words-React-Redux/static/css/main.4e76bcd5.chunk.css"
   },
   {
-    "revision": "23fbe6ede376947ee5c2",
-    "url": "/words-React-Redux/static/js/main.92e9b007.chunk.js"
+    "revision": "4b4cf472047fb0f57a74",
+    "url": "/words-React-Redux/static/js/main.a62a92c8.chunk.js"
   },
   {
     "revision": "693a44557375b3a34c43",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/words-React-Redux/static/js/2.1cba8f3c.chunk.js"
   },
   {
-    "revision": "f46c309d1a47562e1102bf47868560cd",
+    "revision": "571babcc73d6af1e4aa6e7146165c093",
     "url": "/words-React-Redux/index.html"
   }
 ];
