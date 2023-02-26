@@ -4,15 +4,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectLevel, changeLevel } from './levelSlice';
 import { selectTotalWords } from '../wordList/wordListSlice';
 import { useState } from "react";
+import { selectSortType } from "../sort/sortSlice";
 
 
 const Level = () => {
   const levelInStore = useSelector(selectLevel);
   const [level, setLevel] = useState(levelInStore);
   const totalWords = useSelector(selectTotalWords);
+  const sortType = useSelector(selectSortType);
   const dispatch = useDispatch();
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLevel(e.target.value ? parseInt(e.target.value) : 0)
+    if (sortType === 'all') {
+      setLevel(e.target.value ? parseInt(e.target.value) : 0)
+    } else {
+      alert(
+        ` To change "level" possible if sort:
+        "all"`
+      );
+    }
   };
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

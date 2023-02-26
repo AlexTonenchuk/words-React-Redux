@@ -1,5 +1,5 @@
 import { createSlice, createSelector, createEntityAdapter, EntityId } from '@reduxjs/toolkit';
-import { selectMarkedWordsIds, selectFocusWordId } from '../word/wordSlice';
+import { selectMarkedIds, selectFocusWordId } from '../word/wordSlice';
 import { selectLevel } from '../level/levelSlice';
 import { selectSortType } from '../sort/sortSlice';
 import { selectLanguage } from '../language/languageSlice';
@@ -35,11 +35,18 @@ export const {
   selectTotal: selectTotalWords,
 } = wordsAdapter.getSelectors((state: RootState) => state.wordList);
 
+export const selectAllIds = createSelector(
+  selectWordsIds,
+  (allIds) => {
+    return allIds
+  }
+)
+
 export const selectSortedWordsIds = createSelector(
   selectWordsIds,
   selectLevel,
   selectSortType,
-  selectMarkedWordsIds,
+  selectMarkedIds,
   (wordsIds, level, sortType, markedWordsIds) => {
     let ids = [...wordsIds].slice(0, level);
     if (sortType === 'all' || sortType === 'all mixed') {
@@ -75,7 +82,7 @@ export const selectWordTranslate = createSelector(
 
 export const selectIsMarked = createSelector(
   selectCoupleWords,
-  selectMarkedWordsIds,
+  selectMarkedIds,
   (coupleWords, markedWordsIds ) => {
     let isMarked
     if (coupleWords){

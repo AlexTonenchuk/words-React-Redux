@@ -4,7 +4,12 @@
   color: rgb(215, 215, 215);
   border: 1px solid rgb(136, 133, 133);
   box-shadow: 2px 2px 2px rgb(41, 40, 40);
-  width: 40px;
+  width: 20px;
+  padding: 0;
+}
+
+.mixer img {
+  width: 12px;
 }
 
 .mixer button:hover {
@@ -13,4 +18,12 @@
 
 .mixer button:active {
   background: rgb(96, 93, 93);
+}
+
+.disable button {
+  display: none;
+}
+
+.disable img {
+  width: 10px;
 }

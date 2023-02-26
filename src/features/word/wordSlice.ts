@@ -4,34 +4,74 @@ import { RootState } from '../../app/store';
 
 interface IwordState {
   focusWordId: number | '',
-  markedWordsIds: number[]
+  markedIds: number[],
+  markedMixIds: number[],
+  allMixIds: number[]
 }
 
 const initialState: IwordState = {
   focusWordId: '',
-  markedWordsIds: [],
+  markedIds: [],
+  markedMixIds: [],
+  allMixIds: []
 };
 
 // Здесь могло бы быть асинхронное получение данных с сервера,
-// (пользовательский список id выделенных слов),
+// (пользовательские списки id выделенных слов),
 // но сервера нет, поэтому список получаем из localStorage,
 // не вызывая никаких асихронных запросов
-export const getMarkedWordsIds = createAsyncThunk(  'word/getMarkedWordsIds', async () => {
-  return JSON.parse(localStorage.getItem('markedWordsIds') || '[]');
+export const getMarkedIds = createAsyncThunk(
+  'word/getMarkedIds', 
+  async () => {
+  return JSON.parse(localStorage.getItem('markedIds') || '[]');
+});
+
+export const getMarkedMixIds = createAsyncThunk(
+  'word/getMarkedMixIds', 
+  async () => {
+  return JSON.parse(localStorage.getItem('markedMixIds') || '[]');
+})
+
+export const getAllMixIds = createAsyncThunk(
+  'word/getAllMixIds', 
+  async () => {
+  return JSON.parse(localStorage.getItem('allMixIds') || '[]');
 })
 
 // Здесь могла бы быть асинхронная отправка данных на сервер,
-// (и еще один экстраредьюсер для индикации успешности post запроса)
-// чтобы сохранять пользовательский список id выделенных слов,
-// но сервера нет, поэтому список сохраняем в localStorage без экстраредьюсера.
-export const saveMarkedIds = createAsyncThunk('word/changeMarkink', async (id: number | string) => {
-  let list = JSON.parse(localStorage.getItem('markedWordsIds') || '[]');
-  const index = list.indexOf(id);
-  index > -1 ? list.splice(index, 1) : list.push(id);
-  localStorage.removeItem('markedWordsIds');
-  localStorage.setItem('markedWordsIds', JSON.stringify(list));
-  return JSON.parse(localStorage.getItem('markedWordsIds') || '[]');
-});
+// чтобы сохранять пользовательские списки id выделенных слов,
+// но сервера нет, поэтому списки сохраняем в localStorage.
+export const saveMarkedIds = createAsyncThunk(
+  'word/changeMarkedIds', 
+  async (id: number | string) => {
+    let list = JSON.parse(localStorage.getItem('markedIds') || '[]');
+    const index = list.indexOf(id);
+    index > -1 ? list.splice(index, 1) : list.push(id);
+    localStorage.removeItem('markedIds');
+    localStorage.setItem('markedIds', JSON.stringify(list));
+    return JSON.parse(localStorage.getItem('markedIds') || '[]');
+  }
+);
+
+export const saveMarkedMixIds = createAsyncThunk(
+  'word/changeMarkedMixIds', 
+  async (ids: number[]) => {
+    let newMarkedMixIds = [...ids].sort(() => Math.random() - 0.5);
+    localStorage.removeItem('markedMixIds');
+    localStorage.setItem('markedMixIds', JSON.stringify(newMarkedMixIds));
+    return JSON.parse(localStorage.getItem('markedMixIds') || '[]');
+  }
+);
+
+export const saveAllMixIds = createAsyncThunk(
+  'word/changeAllMixIds', 
+  async (ids: number[]) => {
+    let newAllMixIds = [...ids].sort(() => Math.random() - 0.5);
+    localStorage.removeItem('allMixIds');
+    localStorage.setItem('allMixIds', JSON.stringify(newAllMixIds));
+    return JSON.parse(localStorage.getItem('allMixIds') || '[]');
+  }
+);
 
 export const wordSlice = createSlice({
   name: 'word',
@@ -48,14 +88,27 @@ export const wordSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-    .addCase(getMarkedWordsIds.fulfilled, (state, action) => {
-      state.markedWordsIds = action.payload;
+    .addCase(getMarkedIds.fulfilled, (state, action) => {
+      state.markedIds = action.payload;
     })
     .addCase(saveMarkedIds.fulfilled, (state, action) => {
-      state.markedWordsIds = action.payload;
+      state.markedIds = action.payload;
+    })
+    .addCase(getMarkedMixIds.fulfilled, (state, action) => {
+      state.markedMixIds = action.payload;
+    })
+    .addCase(saveMarkedMixIds.fulfilled, (state, action) => {
+      state.markedMixIds = action.payload;
+    })
+    .addCase(getAllMixIds.fulfilled, (state, action) => {
+      state.allMixIds = action.payload;
+    })
+    .addCase(saveAllMixIds.fulfilled, (state, action) => {
+      state.allMixIds = action.payload;
     })
   }
 });
+
 
 export const { 
   changeFocusWordId, 
@@ -69,7 +122,17 @@ export const selectFocusWordId = createSelector(
   state => state.word.focusWordId,
 );
 
-export const selectMarkedWordsIds = createSelector(
+export const selectAllMixIds = createSelector(
   (state: RootState) => state,
-  state => state.word.markedWordsIds,
+  state => state.word.allMixIds,
+);
+
+export const selectMarkedIds = createSelector(
+  (state: RootState) => state,
+  state => state.word.markedIds,
+);
+
+export const selectMarkedMixIds = createSelector(
+  (state: RootState) => state,
+  state => state.word.markedMixIds,
 );

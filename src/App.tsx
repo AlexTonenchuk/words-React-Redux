@@ -9,8 +9,8 @@ function App() {
   return (
     <div className="app">
       <div className='head'>Start Words</div>
-      <Translator/>
       <WordList/>
+      <Translator/>
       <ButtonPanel/>
     </div>
   );
