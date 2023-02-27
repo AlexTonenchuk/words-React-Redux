@@ -1,5 +1,5 @@
 import { createSlice, createSelector, createEntityAdapter, EntityId } from '@reduxjs/toolkit';
-import { selectMarkedIds, selectFocusWordId } from '../word/wordSlice';
+import { selectMarkedIds, selectFocusWordId, selectAllMixIds, selectMarkedMixIds } from '../word/wordSlice';
 import { selectLevel } from '../level/levelSlice';
 import { selectSortType } from '../sort/sortSlice';
 import { selectLanguage } from '../language/languageSlice';
@@ -29,34 +29,11 @@ export const { loaded } = wordListSlice.actions;
 export default wordListSlice.reducer;
 
 export const { 
-  selectIds: selectWordsIds, 
+  selectIds: selectAllIds, 
   selectEntities: selectWordList, 
   selectById: selectCoupleWords,
   selectTotal: selectTotalWords,
 } = wordsAdapter.getSelectors((state: RootState) => state.wordList);
-
-export const selectAllIds = createSelector(
-  selectWordsIds,
-  (allIds) => {
-    return allIds
-  }
-)
-
-export const selectSortedWordsIds = createSelector(
-  selectWordsIds,
-  selectLevel,
-  selectSortType,
-  selectMarkedIds,
-  (wordsIds, level, sortType, markedWordsIds) => {
-    let ids = [...wordsIds].slice(0, level);
-    if (sortType === 'all' || sortType === 'all mixed') {
-      ids = wordsIds.slice(0, level);
-    } else if (sortType === 'marked' || sortType === 'marked mixed' ){
-      ids = markedWordsIds;
-    }
-    return ids
-  }
-)
 
 export const selectWord = createSelector(
   selectCoupleWords,
@@ -90,7 +67,29 @@ export const selectIsMarked = createSelector(
       isMarked = markedWordsIds.indexOf(id) > -1 ? true : false;
       return isMarked
     } else {
-      return isMarked=false
+      return isMarked = false
     }
+  }
+)
+
+export const selectRenderedIds = createSelector(
+  selectAllIds,
+  selectLevel,
+  selectSortType,
+  selectAllMixIds,
+  selectMarkedIds,
+  selectMarkedMixIds,
+  (allIds, level, sort, allMixIds, markedIds, markedMixIds) => {
+    let renderedIds: number[] = [];
+    if (sort === 'all'){
+      renderedIds = [...allIds].slice(0, level);
+    } else if (sort === 'all mixed'){
+      renderedIds = allMixIds
+    } else if (sort === 'marked'){
+      renderedIds = markedIds
+    } else if (sort === 'marked mixed'){
+      renderedIds = markedMixIds
+    };
+    return renderedIds
   }
 )

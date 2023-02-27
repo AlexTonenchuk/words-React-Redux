@@ -109,7 +109,6 @@ export const wordSlice = createSlice({
   }
 });
 
-
 export const { 
   changeFocusWordId, 
   clearFocusWordId, 
@@ -129,7 +128,10 @@ export const selectAllMixIds = createSelector(
 
 export const selectMarkedIds = createSelector(
   (state: RootState) => state,
-  state => state.word.markedIds,
+  state => {
+    let sortedMarkedIds = [...state.word.markedIds].sort((a, b) => a - b)
+    return sortedMarkedIds
+  }
 );
 
 export const selectMarkedMixIds = createSelector(

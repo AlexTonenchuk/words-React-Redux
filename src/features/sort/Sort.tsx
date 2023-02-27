@@ -6,15 +6,17 @@ import { RootState } from "../../app/store";
 
 
 const Sort = () => {
-  const sort = useSelector((state: RootState) => state.sort);  
+  const sortType = useSelector((state: RootState) => state.sort);  
   const dispatch = useDispatch();
-  const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => dispatch(changeSort(e.target.value));
+  const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(changeSort(e.target.value));
+  }
   return (
     <span className={styles.sort}>
       <select
           name ="sort"
           data-testid="sort"
-          defaultValue = { sort }
+          defaultValue = { sortType }
           onChange = { onChange }>
           <option value="all"> all </option>
           <option value="all mixed"> all mixed </option>

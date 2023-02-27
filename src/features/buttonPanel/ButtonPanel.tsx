@@ -6,7 +6,7 @@ import Level from '../level/Level';
 import Mixer from '../mixer/Mixer';
 
 
-const AppHeader = () => {
+const ButtonPanel = () => {
   return (
       <div className={styles.buttonPanel}>
         <Language/>
@@ -17,4 +17,4 @@ const AppHeader = () => {
   )
 }
 
-export default  AppHeader
+export default  ButtonPanel

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Mixer.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '../../app/store';
+import { AppDispatch } from '../../app/store';
 import { saveMarkedMixIds, saveAllMixIds, selectMarkedIds } from '../word/wordSlice';
 import { selectSortType } from '../sort/sortSlice';
 import { selectAllIds } from '../wordList/wordListSlice';
@@ -18,24 +18,21 @@ const Mixer = () => {
     if (sortValue === 'marked mixed') {
       dispatch(saveMarkedMixIds(markedIds));
     } else if (sortValue === 'all mixed') {
-      const ids = allIds.slice(0, level)
+      const ids = allIds.slice(0, level);
       dispatch(saveAllMixIds(ids));
-    } else {
-      alert(
-        `Button "mix" worked if sort: 
-        "all mix"   or   "marked mix"`
-      );
-    };
+    }
   }
-  let stylesBtn = styles.disable;
+  let stylesBtn = " ";
   if (sortValue === 'marked mixed' || sortValue === 'all mixed'){
     stylesBtn = styles.mixer
+  } else {
+    stylesBtn = styles.disable;
   }
   return (
     <div className={stylesBtn}>
       <button onClick={mix}
               data-testid='mixer'>
-        <img src="./update.png" alt="Кнопка update mix"></img>
+        <img src="./update.png"></img>
       </button>
     </div>
   );

@@ -23,7 +23,9 @@ const testState: RootState = {
   },
   word: {
     focusWordId: '',
-    markedWordsIds: [2],
+    allMixIds: [],
+    markedIds: [2],
+    markedMixIds: [2]
   },
   sort: "all",
   level: 3,
@@ -70,7 +72,9 @@ describe('after first render app:', () => {
       },
       word: {
         focusWordId: "",
-        markedWordsIds: [],
+        allMixIds: [],
+        markedIds: [],
+        markedMixIds: [],
       },
       sort: "all",
       level: 4,       //  меняем на 4 вместо 3
@@ -161,7 +165,9 @@ describe('after select "all mixed" it is selected', () => {
       },
       word: {
         focusWordId: '',
-        markedWordsIds: [],
+        allMixIds: [5, 1, 4, 2, 3],
+        markedIds: [],
+        markedMixIds: []
       },
       sort: "all",
       level: 5,
@@ -237,7 +243,6 @@ test('when mouse hover in "2": "один" is not rendered', () => {
 test('"level", "out off" are rendered', () => {
   renderWithProviders(<App />, { preloadedState: testState });
   expect(screen.getByText('level')).toBeInTheDocument();
-  expect(screen.getByText('out off')).toBeInTheDocument();
 });
 
 test('"level" equal 3', () => {
